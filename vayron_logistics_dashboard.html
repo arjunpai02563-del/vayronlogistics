@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vayron Logistics | Business Dashboard</title>
+<style>
+:root{--bg:#0b1020;--panel:#131b2f;--panel2:#18233b;--line:#293650;--text:#f4f7ff;--muted:#9aa8c2;--gold:#f5bd4f;--green:#35d39a;--red:#ff6b78;--blue:#75a7ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top right,#1b2a48 0%,var(--bg) 48%);color:var(--text);font:15px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:11px;padding:10px 14px;font-weight:750;transition:.15s}button:hover{filter:brightness(1.08);transform:translateY(-1px)}.primary{background:var(--gold);color:#1b1b1b}.secondary{background:#263553;color:var(--text);border:1px solid #3a4a69}.danger{background:#4b2430;color:#ffd8dd;border:1px solid #85404c}.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.wrap{max-width:1240px;margin:auto;padding:22px}.top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px}.brand{display:flex;align-items:center;gap:13px}.logo{width:52px;height:52px;border-radius:15px;background:linear-gradient(135deg,#ffe39a,#d89522);display:grid;place-items:center;color:#101522;font-weight:1000;font-size:25px;box-shadow:0 8px 28px #e5a83424}.brand h1{margin:0;font-size:clamp(22px,4vw,31px);letter-spacing:.06em}.brand p{margin:2px 0 0;color:var(--muted)}.top-actions{display:flex;gap:8px;flex-wrap:wrap}.hero{padding:25px;border:1px solid #4a3e2c;border-radius:22px;background:linear-gradient(120deg,#1b263c,#171b2c 60%,#302719);margin-bottom:20px;position:relative;overflow:hidden}.hero:after{content:"V";position:absolute;right:30px;top:-55px;font-size:220px;font-weight:1000;color:#f5bd4f0b;pointer-events:none}.eyebrow{color:var(--gold);font-size:12px;font-weight:900;letter-spacing:.16em;text-transform:uppercase}.hero h2{font-size:clamp(24px,4vw,36px);line-height:1.1;margin:8px 0}.hero p{color:#bdc7d9;max-width:680px;margin:0}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin:18px 0}.stat,.card{background:linear-gradient(145deg,var(--panel),#101728);border:1px solid var(--line);border-radius:17px;padding:18px;min-width:0}.stat .label{color:var(--muted);font-size:13px}.stat .value{font-size:clamp(21px,3vw,29px);font-weight:850;margin:7px 0 3px;overflow-wrap:anywhere}.stat .sub{font-size:12px;color:var(--muted)}.green{color:var(--green)!important}.gold{color:var(--gold)!important}.red{color:var(--red)!important}.layout{display:grid;grid-template-columns:minmax(310px,.9fr) minmax(0,1.5fr);gap:16px;align-items:start}.card h3{margin:0 0 5px;font-size:19px}.desc{color:var(--muted);font-size:13px;margin:0 0 18px}.fieldgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:6px;min-width:0}.field.full{grid-column:1/-1}.field label{font-size:12px;color:#b5c2d8;font-weight:750}.field input,.field select,.field textarea,.toolbar input,.toolbar select{width:100%;border:1px solid #34435f;background:#0d1424;color:var(--text);padding:11px 12px;border-radius:10px;outline:none;min-width:0}.field input:focus,.field select:focus,.toolbar input:focus{border-color:var(--gold);box-shadow:0 0 0 3px #f5bd4f16}.form-actions{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}.form-actions button{flex:1}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin:15px 0}.toolbar input{flex:1;min-width:150px}.toolbar select{width:auto;min-width:130px}.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:12px}table{border-collapse:collapse;width:100%;min-width:760px;background:#101728}th,td{padding:12px 13px;border-bottom:1px solid #263149;text-align:left;font-size:13px;vertical-align:middle}th{color:#aebbd2;background:#18233a;text-transform:uppercase;font-size:11px;letter-spacing:.06em;position:sticky;top:0}td{color:#e6ebf5}tr:last-child td{border-bottom:0}.pill{display:inline-flex;padding:4px 8px;border-radius:99px;background:#1b3d36;color:#7af0c0;font-size:11px;font-weight:800}.pill.pending{background:#493c23;color:#ffd681}.pill.cancelled{background:#482832;color:#ffb3bd}.actions{display:flex;gap:6px}.actions button{padding:6px 9px;font-size:12px}.empty{text-align:center;padding:36px 14px;color:var(--muted)}.lower{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}.note{color:var(--muted);font-size:12px;margin-top:12px}.splitline{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}.splitline:last-child{border:0}.splitline span:first-child{color:var(--muted)}.footer{text-align:center;color:#75839d;font-size:12px;padding:24px 0 8px}.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);background:#e7fff4;color:#09251b;padding:12px 17px;border-radius:12px;font-weight:800;opacity:0;pointer-events:none;transition:.2s;box-shadow:0 8px 35px #0005;z-index:10}.toast.show{opacity:1;transform:translate(-50%,0)}.modalback{position:fixed;inset:0;background:#050811c9;display:none;align-items:center;justify-content:center;padding:18px;z-index:20}.modalback.show{display:flex}.modal{max-width:460px;width:100%;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px}.modal h3{margin-top:0}.modal p{color:var(--muted)}.modalactions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+@media(max-width:900px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.layout{grid-template-columns:1fr}.lower{grid-template-columns:1fr}}@media(max-width:520px){.wrap{padding:13px}.hero{padding:19px}.fieldgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.stat{padding:14px}.top-actions button{padding:9px 10px;font-size:12px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><div class="logo">V</div><div><h1>VAYRON <span class="gold">LOGISTICS</span></h1><p>Building Connection · Partner Dashboard</p></div></div>
+    <div class="top-actions">
+      <button class="secondary" id="exportBtn">↓ Export backup</button>
+      <button class="secondary" id="importBtn">↑ Import backup</button>
+      <button class="ghost" id="clearBtn">Clear all data</button>
+      <input type="file" id="importFile" accept=".json,application/json" hidden>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">Your business. Your numbers.</div>
+    <h2>Move goods. Build trust.<br><span class="gold">Grow Vayron.</span></h2>
+    <p>Record each shipment, track customer payments and truck costs, and see your turnover and estimated profit update automatically.</p>
+  </section>
+
+  <section class="stats">
+    <div class="stat"><div class="label">TOTAL TURNOVER</div><div class="value gold" id="turnover">₹0</div><div class="sub">Customer charges on saved shipments</div></div>
+    <div class="stat"><div class="label">TOTAL COSTS</div><div class="value" id="costs">₹0</div><div class="sub">Truck, direct and overhead costs recorded</div></div>
+    <div class="stat"><div class="label">EST. PROFIT</div><div class="value green" id="profit">₹0</div><div class="sub">Before tax and unrecorded expenses</div></div>
+    <div class="stat"><div class="label">SHIPMENTS</div><div class="value" id="count">0</div><div class="sub" id="pendingCount">0 pending</div></div>
+  </section>
+
+  <div class="layout">
+    <section class="card" id="formCard">
+      <h3 id="formTitle">＋ Add a shipment</h3>
+      <p class="desc">Enter your order details. Fields marked * are recommended.</p>
+      <form id="shipmentForm">
+        <input type="hidden" id="recordId">
+        <div class="fieldgrid">
+          <div class="field"><label for="date">Shipment date *</label><input id="date" type="date" required></div>
+          <div class="field"><label for="status">Status</label><select id="status"><option>Lead</option><option>Quoted</option><option>Booked</option><option>In Transit</option><option>Delivered</option><option>Paid</option><option>Cancelled</option></select></div>
+          <div class="field full"><label for="customer">Customer / company *</label><input id="customer" placeholder="e.g. ABC Traders" required></div>
+          <div class="field"><label for="phone">Customer phone</label><input id="phone" type="tel" placeholder="Phone number"></div>
+          <div class="field"><label for="truckOwner">Truck owner / operator</label><input id="truckOwner" placeholder="Name or company"></div>
+          <div class="field"><label for="origin">Pickup location</label><input id="origin" placeholder="e.g. Mangalore"></div>
+          <div class="field"><label for="destination">Delivery location</label><input id="destination" placeholder="e.g. Bengaluru"></div>
+          <div class="field"><label for="vehicle">Vehicle type / number</label><input id="vehicle" placeholder="e.g. 14 ft / KA-XX-XXXX"></div>
+          <div class="field"><label for="goods">Goods / load details</label><input id="goods" placeholder="e.g. packaged food"></div>
+          <div class="field"><label for="charge">Customer charge (₹) *</label><input id="charge" type="number" min="0" step="0.01" value="18000" required></div>
+          <div class="field"><label for="truckCost">Truck payment (₹) *</label><input id="truckCost" type="number" min="0" step="0.01" value="14000" required></div>
+          <div class="field"><label for="otherCost">Other direct costs (₹)</label><input id="otherCost" type="number" min="0" step="0.01" value="500"></div>
+          <div class="field"><label for="brandingCost">Branding / stickers (₹)</label><input id="brandingCost" type="number" min="0" step="0.01" value="500"></div>
+          <div class="field full"><label for="notes">Notes / payment terms</label><textarea id="notes" rows="2" placeholder="Payment due date, special instructions, etc."></textarea></div>
+        </div>
+        <div class="form-actions"><button class="primary" type="submit" id="saveBtn">Save shipment</button><button class="secondary" type="button" id="resetBtn">Reset form</button></div>
+      </form>
+      <p class="note">Data is saved in this browser on this device. Use Export backup regularly. It does not automatically sync with Keerthan's device.</p>
+    </section>
+
+    <section class="card">
+      <h3>Shipment register</h3>
+      <p class="desc">Search, edit, or delete individual records. Totals update when records change.</p>
+      <div class="toolbar">
+        <input id="search" placeholder="Search customer, route, truck owner…">
+        <select id="filterStatus"><option value="">All statuses</option><option>Lead</option><option>Quoted</option><option>Booked</option><option>In Transit</option><option>Delivered</option><option>Paid</option><option>Cancelled</option></select>
+        <button class="secondary" id="csvBtn">Export CSV</button>
+      </div>
+      <div class="tablewrap"><table><thead><tr><th>Date / customer</th><th>Route</th><th>Status</th><th>Turnover</th><th>Est. profit</th><th>Actions</th></tr></thead><tbody id="tableBody"></tbody></table><div id="empty" class="empty">No shipments saved yet.<br>Add your first record using the form.</div></div>
+      <p class="note">Turnover and estimated profit include all saved records except cancelled shipments. A lead or quotation may not yet be actual revenue—use the status to distinguish pipeline from completed business.</p>
+    </section>
+  </div>
+
+  <div class="lower">
+    <section class="card">
+      <h3>Partner split</h3><p class="desc">Illustrative equal partnership calculation.</p>
+      <div class="splitline"><span>Estimated profit before tax</span><strong id="splitProfit">₹0</strong></div>
+      <div class="splitline"><span>Your 50% share</span><strong id="yourShare" class="green">₹0</strong></div>
+      <div class="splitline"><span>Keerthan's 50% share</span><strong id="keerthanShare" class="green">₹0</strong></div>
+      <p class="note">Agree on ownership, withdrawals, reinvestment, and expense approval together. A profit split is not the same as cash available if customers have not paid.</p>
+    </section>
+    <section class="card">
+      <h3>Quick money check</h3><p class="desc">Add monthly business overheads to refine your estimate.</p>
+      <div class="field"><label for="overheads">Monthly overheads (₹)</label><input id="overheads" type="number" min="0" step="100" value="0"></div>
+      <div class="splitline" style="margin-top:12px"><span>Shipment contribution</span><strong id="contribution">₹0</strong></div>
+      <div class="splitline"><span>Less monthly overheads</span><strong id="overheadShow">₹0</strong></div>
+      <div class="splitline"><span>Estimated profit after overheads</span><strong id="netProfit" class="green">₹0</strong></div>
+      <div class="splitline"><span>Each partner (50%)</span><strong id="netShare">₹0</strong></div>
+    </section>
+  </div>
+  <div class="footer">VAYRON LOGISTICS · Building Connection · Keep your backup file safe.</div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="modalback" id="modal">
+  <div class="modal"><h3 id="modalTitle">Confirm action</h3><p id="modalText">Are you sure?</p><div class="modalactions"><button class="secondary" id="modalCancel">Cancel</button><button class="danger" id="modalConfirm">Delete</button></div></div>
+</div>
+<script>
+(() => {
+  const STORAGE_KEY = 'vayronLogistics.shipments.v1';
+  const OVERHEAD_KEY = 'vayronLogistics.overheads.v1';
+  const $ = id => document.getElementById(id);
+  let records = [];
+  let confirmAction = null;
+  const money = n => new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:2}).format(Number(n)||0);
+  const num = id => Math.max(0, Number($(id).value)||0);
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const today = () => new Date().toLocaleDateString('en-CA');
+  function toast(msg){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2300)}
+  function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(records));localStorage.setItem(OVERHEAD_KEY,String(num('overheads')))}catch(e){toast('Could not save. Export a backup and check browser storage.');}}
+  function profitOf(r){return Number(r.charge||0)-Number(r.truckCost||0)-Number(r.otherCost||0)-Number(r.brandingCost||0)}
+  function activeRecords(){return records.filter(r=>r.status!=='Cancelled')}
+  function getTotals(){
+    const a=activeRecords();
+    const turnover=a.reduce((s,r)=>s+Number(r.charge||0),0);
+    const costs=a.reduce((s,r)=>s+Number(r.truckCost||0)+Number(r.otherCost||0)+Number(r.brandingCost||0),0);
+    return {turnover,costs,contribution:turnover-costs,count:a.length,pending:a.filter(r=>!['Paid','Delivered','Cancelled'].includes(r.status)).length};
+  }
+  function render(){
+    const t=getTotals(), overhead=num('overheads'), net=t.contribution-overhead;
+    $('turnover').textContent=money(t.turnover);$('costs').textContent=money(t.costs);
+    $('profit').textContent=money(net);$('profit').className='value '+(net>=0?'green':'red');
+    $('count').textContent=t.count;$('pendingCount').textContent=t.pending+' pending / active';
+    $('splitProfit').textContent=money(net);$('yourShare').textContent=money(net/2);$('keerthanShare').textContent=money(net/2);
+    $('contribution').textContent=money(t.contribution);$('overheadShow').textContent=money(overhead);
+    $('netProfit').textContent=money(net);$('netProfit').className=net>=0?'green':'red';$('netShare').textContent=money(net/2);
+    const q=$('search').value.trim().toLowerCase(), fs=$('filterStatus').value;
+    const list=records.filter(r=>(!fs||r.status===fs)&&(!q||[r.customer,r.phone,r.truckOwner,r.origin,r.destination,r.vehicle,r.goods,r.notes,r.status].some(v=>String(v||'').toLowerCase().includes(q)))).sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+    $('tableBody').innerHTML=list.map(r=>{
+      const p=profitOf(r), statusClass=r.status==='Cancelled'?'cancelled':(['Lead','Quoted'].includes(r.status)?'pending':'');
+      return `<tr><td><strong>${esc(r.date||'—')}</strong><br>${esc(r.customer||'Unnamed customer')}<br><span style="color:#8292ad">${esc(r.truckOwner||'No operator listed')}</span></td><td>${esc(r.origin||'—')} → ${esc(r.destination||'—')}<br><span style="color:#8292ad">${esc(r.vehicle||'')}</span></td><td><span class="pill ${statusClass}">${esc(r.status||'Lead')}</span></td><td>${money(r.charge)}</td><td class="${p>=0?'green':'red'}">${money(p)}</td><td><div class="actions"><button class="secondary" data-edit="${esc(r.id)}">Edit</button><button class="danger" data-delete="${esc(r.id)}">Delete</button></div></td></tr>`;
+    }).join('');
+    $('empty').style.display=list.length?'none':'block';
+    $('tableBody').querySelectorAll('[data-edit]').forEach(b=>b.addEventListener('click',()=>editRecord(b.dataset.edit)));
+    $('tableBody').querySelectorAll('[data-delete]').forEach(b=>b.addEventListener('click',()=>ask('Delete shipment?','This record will be permanently removed from this browser. Export a backup first if you may need it.',()=>{records=records.filter(r=>r.id!==b.dataset.delete);save();render();if($('recordId').value===b.dataset.delete)resetForm();toast('Shipment deleted.')})));
+  }
+  function formData(){return {id:$('recordId').value||String(Date.now())+'-'+Math.random().toString(16).slice(2),date:$('date').value, status:$('status').value, customer:$('customer').value.trim(),phone:$('phone').value.trim(),truckOwner:$('truckOwner').value.trim(),origin:$('origin').value.trim(),destination:$('destination').value.trim(),vehicle:$('vehicle').value.trim(),goods:$('goods').value.trim(),charge:num('charge'),truckCost:num('truckCost'),otherCost:num('otherCost'),brandingCost:num('brandingCost'),notes:$('notes').value.trim()}}
+  function resetForm(){$('shipmentForm').reset();$('recordId').value='';$('date').value=today();$('status').value='Lead';$('charge').value='18000';$('truckCost').value='14000';$('otherCost').value='500';$('brandingCost').value='500';$('formTitle').textContent='＋ Add a shipment';$('saveBtn').textContent='Save shipment'}
+  function editRecord(id){const r=records.find(x=>x.id===id);if(!r)return;Object.keys(r).forEach(k=>{const el=$(k);if(el)el.value=r[k]??''});$('recordId').value=r.id;$('formTitle').textContent='✎ Edit shipment';$('saveBtn').textContent='Update shipment';$('formCard').scrollIntoView({behavior:'smooth',block:'start'})}
+  function ask(title,text,action,confirmLabel='Delete'){ $('modalTitle').textContent=title;$('modalText').textContent=text;$('modalConfirm').textContent=confirmLabel;confirmAction=action;$('modal').classList.add('show') }
+  $('modalCancel').onclick=()=>{$('modal').classList.remove('show');confirmAction=null};
+  $('modalConfirm').onclick=()=>{const fn=confirmAction;$('modal').classList.remove('show');confirmAction=null;if(fn)fn()};
+  $('modal').addEventListener('click',e=>{if(e.target===$('modal'))$('modalCancel').click()});
+  $('shipmentForm').addEventListener('submit',e=>{e.preventDefault();const r=formData();if(!r.customer){toast('Enter a customer name first.');return}const i=records.findIndex(x=>x.id===r.id);if(i>=0)records[i]=r;else records.push(r);save();render();resetForm();toast(i>=0?'Shipment updated.':'Shipment saved.')});
+  $('resetBtn').onclick=()=>{resetForm()};
+  $('overheads').addEventListener('input',()=>{save();render()});
+  $('search').addEventListener('input',render);$('filterStatus').addEventListener('change',render);
+  $('clearBtn').onclick=()=>ask('Clear ALL data?','This deletes every saved shipment and the current overhead setting from this browser. Export a backup first. This cannot be undone.',()=>{records=[];$('overheads').value='0';save();render();resetForm();toast('All local data cleared.')},'Clear all');
+  function download(name,content,type){const blob=new Blob([content],{type});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url)}
+  $('exportBtn').onclick=()=>{const data={app:'Vayron Logistics Dashboard',version:1,exportedAt:new Date().toISOString(),overheads:num('overheads'),records};download('vayron-backup-'+today()+'.json',JSON.stringify(data,null,2),'application/json');toast('Backup exported.')};
+  $('importBtn').onclick=()=>$('importFile').click();
+  $('importFile').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{const data=JSON.parse(await file.text());if(!data||!Array.isArray(data.records))throw new Error('Invalid backup');ask('Import backup?','Importing will replace the shipment records currently stored in this browser. Export your current data first if needed.',()=>{records=data.records.map((r,i)=>({...r,id:String(r.id||Date.now()+'-'+i)}));$('overheads').value=String(Math.max(0,Number(data.overheads)||0));save();render();toast('Backup imported.')},'Import & replace')}catch(err){toast('That file is not a valid Vayron backup.')}e.target.value=''});
+  $('csvBtn').onclick=()=>{const headers=['Date','Customer','Phone','Truck owner','Origin','Destination','Vehicle','Goods','Status','Customer charge','Truck cost','Other direct costs','Branding cost','Estimated profit','Notes'];const rows=records.map(r=>[r.date,r.customer,r.phone,r.truckOwner,r.origin,r.destination,r.vehicle,r.goods,r.status,r.charge,r.truckCost,r.otherCost,r.brandingCost,profitOf(r),r.notes]);const cell=v=>'"'+String(v??'').replace(/"/g,'""')+'"';download('vayron-shipments-'+today()+'.csv',[headers,...rows].map(row=>row.map(cell).join(',')).join('\r\n'),'text/csv;charset=utf-8');toast('CSV exported.')};
+  try{records=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');if(!Array.isArray(records))records=[];$('overheads').value=String(Math.max(0,Number(localStorage.getItem(OVERHEAD_KEY))||0))}catch(e){records=[]}
+  resetForm();render();
+})();
+</script>
+</body>
+</html>
